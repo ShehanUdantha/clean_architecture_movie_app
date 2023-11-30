@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'config/theme/theme.dart';
 import 'features/favorite/presentation/bloc/favorite/favorite_bloc.dart';
 import 'features/movie/presentation/bloc/movie/movie_bloc.dart';
 
@@ -49,11 +50,9 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp.router(
         title: 'MovieRay',
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          useMaterial3: true,
-          fontFamily: 'Poppins',
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),

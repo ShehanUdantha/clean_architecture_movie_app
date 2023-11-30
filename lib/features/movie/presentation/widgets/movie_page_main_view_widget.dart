@@ -35,7 +35,12 @@ class MoviePageMainViewWidget extends StatelessWidget {
           children: [
             Text(
               'Trending Movies',
-              style: Styles.textStyle(size: 16),
+              style: Styles.textStyle(
+                size: 16,
+                color: Helper.isDark(context)
+                    ? AppColors.textColorDark
+                    : AppColors.textColorLight,
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -52,7 +57,9 @@ class MoviePageMainViewWidget extends StatelessWidget {
                 'See all',
                 style: Styles.textStyle(
                   size: 14,
-                  color: AppColors.purpleColor,
+                  color: Helper.isDark(context)
+                      ? AppColors.purpleColorDark
+                      : AppColors.purpleColorLight,
                   weight: FontWeight.w500,
                 ),
               ),
@@ -76,7 +83,12 @@ class MoviePageMainViewWidget extends StatelessWidget {
           children: [
             Text(
               'Genres',
-              style: Styles.textStyle(size: 16),
+              style: Styles.textStyle(
+                size: 16,
+                color: Helper.isDark(context)
+                    ? AppColors.textColorDark
+                    : AppColors.textColorLight,
+              ),
             ),
           ],
         ),
@@ -95,7 +107,12 @@ class MoviePageMainViewWidget extends StatelessWidget {
           children: [
             Text(
               'Popular Movies',
-              style: Styles.textStyle(size: 16),
+              style: Styles.textStyle(
+                size: 16,
+                color: Helper.isDark(context)
+                    ? AppColors.textColorDark
+                    : AppColors.textColorLight,
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -112,7 +129,9 @@ class MoviePageMainViewWidget extends StatelessWidget {
                 'See all',
                 style: Styles.textStyle(
                   size: 14,
-                  color: AppColors.purpleColor,
+                  color: Helper.isDark(context)
+                      ? AppColors.purpleColorDark
+                      : AppColors.purpleColorLight,
                   weight: FontWeight.w500,
                 ),
               ),

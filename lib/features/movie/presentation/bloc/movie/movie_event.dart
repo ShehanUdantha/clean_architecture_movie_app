@@ -10,12 +10,12 @@ sealed class MovieEvent extends Equatable {
 // upcoming movies event
 class GetUpComingMoviesEvent extends MovieEvent {}
 
-// trending movies event
+// trending movies events
 class GetTrendingMoviesEvent extends MovieEvent {}
 
 class GetMoreTrendingMoviesEvent extends MovieEvent {}
 
-// popular movies event
+// popular movies events
 class GetPopularMoviesEvent extends MovieEvent {}
 
 class GetMorePopularMoviesEvent extends MovieEvent {}
@@ -34,6 +34,7 @@ class GetMoviesByQueryEvent extends MovieEvent {
   const GetMoviesByQueryEvent({required this.query});
 }
 
+// search bar focus event
 class SearchBarFocusEvent extends MovieEvent {
   final bool isFocus;
 

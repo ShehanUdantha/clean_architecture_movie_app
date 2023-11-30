@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../constant/colors.dart';
 import '../../constant/lists.dart';
+import '../../utils/helper.dart';
 
 class HomePage extends StatefulWidget {
   final StatefulNavigationShell statefulNavigationShell;
@@ -24,8 +25,10 @@ class _HomePageState extends State<HomePage> {
         child: BottomNavigationBar(
           currentIndex: widget.statefulNavigationShell.currentIndex,
           items: Lists.bottomBarItemList,
-          selectedItemColor: AppColors.purpleColor,
-          unselectedItemColor: AppColors.mediumGrey,
+          selectedItemColor: Helper.isDark(context)
+              ? AppColors.purpleColorDark
+              : AppColors.purpleColorLight,
+          unselectedItemColor: AppColors.mediumGreyColor,
           elevation: 10,
           onTap: (value) => goToBranch(value),
         ),

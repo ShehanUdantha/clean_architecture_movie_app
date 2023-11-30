@@ -61,10 +61,8 @@ _bodyWidget(CardTypes type) {
                         ),
                 );
               } else {
-                return const Card(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
               }
             },

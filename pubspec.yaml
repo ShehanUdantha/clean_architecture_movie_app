@@ -37,12 +37,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_native_splash: ^2.3.6
   flutter_rating_bar: ^4.0.1
   get_it: ^7.6.4
   go_router: ^12.1.1
   iconsax: ^0.0.8
   intl: ^0.18.1
-  shimmer: ^3.0.0
+  lottie: ^2.7.0
   sqflite: ^2.3.0
   url_launcher: ^6.2.1
 
@@ -63,6 +64,8 @@ flutter:
   assets:
     - assets/ca/
     - assets/genres/
+    - assets/lotties/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -93,3 +96,10 @@ flutter:
           weight: 800
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  image: "assets/images/logo.png"
+  color: "#ffffff"
+  color_dark: "#121212"

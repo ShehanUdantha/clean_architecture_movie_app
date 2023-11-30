@@ -6,23 +6,33 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Helper {
+  static bool isDark(BuildContext context) {
+    return MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  }
+
   static double screeHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
   static double screeWidth(BuildContext context) =>
       MediaQuery.of(context).size.width;
 
+  static String generateTrendingUrl(int page) =>
+      '${APIConstant.trendingUrl}$page';
+  static String generatePopularUrl(int page) =>
+      '${APIConstant.popularUrl}$page';
+
+  static String generateMovieDetailsUrl(String movieId) =>
+      '${APIConstant.baseUrl}/movie/$movieId?api_key=${APIConstant.apiKey}&append_to_response=videos,credits,reviews,similar';
+  static String generateSearchUrl(String query) =>
+      '${APIConstant.searchMovieUrl}$query&api_key=${APIConstant.apiKey}&language=en-US&sort_by=release_date.desc';
+
   static String generateImageUrl(String path) =>
       '${APIConstant.baseImageURL}$path';
   static String generateGenreUrl(String id) => '${APIConstant.genreUrl}$id';
-  static String generateMovieDetailsUrl(String movieId) =>
-      '${APIConstant.baseUrl}/movie/$movieId?api_key=${APIConstant.apiKey}&append_to_response=videos,credits,reviews,similar';
   static String generateProfileUrl(String path) =>
       '${APIConstant.baseProfileUrl}$path';
   static String generateAvatarUrl(String path) =>
       '${APIConstant.baseAvatarUrl}$path';
-  static String generateSearchUrl(String query) =>
-      '${APIConstant.searchMovieUrl}$query&api_key=${APIConstant.apiKey}&language=en-US&sort_by=release_date.desc';
   static Uri generateVideoUrl(String key) =>
       Uri.parse('${APIConstant.baseVideoUrl}$key');
 

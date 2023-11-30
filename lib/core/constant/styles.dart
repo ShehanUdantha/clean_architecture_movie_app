@@ -9,7 +9,7 @@ class Styles {
   }) {
     return TextStyle(
       fontSize: size,
-      color: color ?? AppColors.textColor,
+      color: color ?? AppColors.textColorDark,
       fontWeight: weight,
     );
   }
@@ -22,8 +22,8 @@ class Styles {
       ),
       gradient: LinearGradient(
         colors: [
-          AppColors.dark.withOpacity(1),
-          AppColors.dark.withOpacity(0),
+          AppColors.darkColor.withOpacity(1),
+          AppColors.darkColor.withOpacity(0),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,

@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lottie/lottie.dart';
+import '../../../../core/constant/colors.dart';
 import '../../domain/entities/movie_credit_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +27,12 @@ class MovieActorsWidget extends StatelessWidget {
           Text(
             'Actors',
             textAlign: TextAlign.start,
-            style: Styles.textStyle(size: 20),
+            style: Styles.textStyle(
+              size: 20,
+              color: Helper.isDark(context)
+                  ? AppColors.textColorDark
+                  : AppColors.textColorLight,
+            ),
           ),
           const SizedBox(
             height: 8,
@@ -57,8 +64,14 @@ class MovieActorsWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(),
+                        placeholder: (context, url) => SizedBox(
+                          width: Helper.screeWidth(context) * 0.32,
+                          child: Center(
+                            child: Lottie.asset(
+                              'assets/lotties/loading.json',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                         ),
                       ),
                       Container(

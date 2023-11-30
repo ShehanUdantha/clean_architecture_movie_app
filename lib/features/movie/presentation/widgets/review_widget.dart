@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../core/constant/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -28,7 +29,12 @@ class ReviewWidget extends StatelessWidget {
           Text(
             'Reviews',
             textAlign: TextAlign.start,
-            style: Styles.textStyle(size: 20),
+            style: Styles.textStyle(
+              size: 20,
+              color: Helper.isDark(context)
+                  ? AppColors.textColorDark
+                  : AppColors.textColorLight,
+            ),
           ),
           const SizedBox(
             height: 8,
@@ -45,9 +51,12 @@ class ReviewWidget extends StatelessWidget {
                     children: [
                       Container(
                         width: Helper.screeWidth(context) * 0.65,
-                        decoration: const BoxDecoration(
-                          color: AppColors.greyDark,
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        decoration: BoxDecoration(
+                          color: Helper.isDark(context)
+                              ? AppColors.greyColorDark
+                              : AppColors.greyColorLight,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15)),
                         ),
                       ),
                       Positioned(
@@ -74,8 +83,14 @@ class ReviewWidget extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(),
+                              placeholder: (context, url) => SizedBox(
+                                width: 40,
+                                child: Center(
+                                  child: Lottie.asset(
+                                    'assets/lotties/loading.json',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -89,7 +104,12 @@ class ReviewWidget extends StatelessWidget {
                                     movieDetails.reviews[index].authorName,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.start,
-                                    style: Styles.textStyle(size: 15),
+                                    style: Styles.textStyle(
+                                      size: 15,
+                                      color: Helper.isDark(context)
+                                          ? AppColors.textColorDark
+                                          : AppColors.textColorLight,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -130,6 +150,9 @@ class ReviewWidget extends StatelessWidget {
                             style: Styles.textStyle(
                               size: 14,
                               weight: FontWeight.w400,
+                              color: Helper.isDark(context)
+                                  ? AppColors.textColorDark
+                                  : AppColors.textColorLight,
                             ),
                           ),
                         ),

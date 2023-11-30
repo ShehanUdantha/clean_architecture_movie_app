@@ -25,6 +25,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     on<CheckMovieISFavoriteOrNotEvent>(onCheckMovieISFavoriteOrNotEvent);
   }
 
+// movie details
   FutureOr<void> onGetMovieDetailsEvent(
     GetMovieDetailsEvent event,
     Emitter<MovieDetailsState> emit,
@@ -47,6 +48,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     );
   }
 
+// favorite movies
   FutureOr<void> onAddMovieToFavoriteEvent(
     AddMovieToFavoriteEvent event,
     Emitter<MovieDetailsState> emit,

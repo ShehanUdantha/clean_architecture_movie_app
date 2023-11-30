@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../constant/api_constant.dart';
 import '../../constant/colors.dart';
@@ -34,8 +35,14 @@ class ListVerticalCardWidget extends StatelessWidget {
                 ),
               ),
             ),
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
+            placeholder: (context, url) => SizedBox(
+              width: Helper.screeWidth(context) * 0.40,
+              child: Center(
+                child: Lottie.asset(
+                  'assets/lotties/loading.json',
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
           ),
           Container(
@@ -98,7 +105,7 @@ class ListVerticalCardWidget extends StatelessWidget {
                 bottom: 1,
               ),
               decoration: const BoxDecoration(
-                color: AppColors.greyDark,
+                color: AppColors.greyColorDark,
                 borderRadius: BorderRadius.all(Radius.circular(14)),
               ),
               child: Row(
@@ -113,7 +120,7 @@ class ListVerticalCardWidget extends StatelessWidget {
                   Text(
                     movie.voteAverage.toStringAsFixed(1),
                     style: Styles.textStyle(
-                      color: AppColors.grey,
+                      color: AppColors.greyColor,
                       weight: FontWeight.normal,
                     ),
                   ),

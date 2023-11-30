@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lottie/lottie.dart';
 import '../../constant/colors.dart';
 import '../../../features/favorite/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,11 @@ class ListHorizontalCardWidget extends StatelessWidget {
           Container(
             height: Helper.screeWidth(context) * 0.425,
             padding: const EdgeInsets.all(5.0).copyWith(top: 6, left: 6),
-            decoration: const BoxDecoration(
-              color: AppColors.greyDark,
-              borderRadius: BorderRadius.all(
+            decoration: BoxDecoration(
+              color: Helper.isDark(context)
+                  ? AppColors.greyColorDark
+                  : AppColors.greyColor,
+              borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
             ),
@@ -53,8 +56,14 @@ class ListHorizontalCardWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(),
+                      placeholder: (context, url) => SizedBox(
+                        width: Helper.screeWidth(context) * 0.29,
+                        child: Center(
+                          child: Lottie.asset(
+                            'assets/lotties/loading.json',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
                     ),
                     Container(
@@ -81,7 +90,12 @@ class ListHorizontalCardWidget extends StatelessWidget {
                         movie.title,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
-                        style: Styles.textStyle(size: 18),
+                        style: Styles.textStyle(
+                          size: 18,
+                          color: Helper.isDark(context)
+                              ? AppColors.textColorDark
+                              : AppColors.textColorLight,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -98,8 +112,12 @@ class ListHorizontalCardWidget extends StatelessWidget {
                                     : '0',
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.start,
-                                style:
-                                    Styles.textStyle(weight: FontWeight.w400),
+                                style: Styles.textStyle(
+                                  weight: FontWeight.w400,
+                                  color: Helper.isDark(context)
+                                      ? AppColors.textColorDark
+                                      : AppColors.textColorLight,
+                                ),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -117,7 +135,9 @@ class ListHorizontalCardWidget extends StatelessWidget {
                               Text(
                                 movie.voteAverage.toStringAsFixed(1),
                                 style: Styles.textStyle(
-                                  color: AppColors.grey,
+                                  color: Helper.isDark(context)
+                                      ? AppColors.greyColor
+                                      : AppColors.mediumDarkGreyColor,
                                   weight: FontWeight.normal,
                                 ),
                               ),
@@ -127,7 +147,9 @@ class ListHorizontalCardWidget extends StatelessWidget {
                               Text(
                                 '(${movie.voteCount})',
                                 style: Styles.textStyle(
-                                  color: AppColors.grey,
+                                  color: Helper.isDark(context)
+                                      ? AppColors.greyColor
+                                      : AppColors.mediumDarkGreyColor,
                                   weight: FontWeight.normal,
                                 ),
                               ),
@@ -143,6 +165,9 @@ class ListHorizontalCardWidget extends StatelessWidget {
                             style: Styles.textStyle(
                               size: 13,
                               weight: FontWeight.w400,
+                              color: Helper.isDark(context)
+                                  ? AppColors.textColorDark
+                                  : AppColors.textColorLight,
                             ),
                             maxLines: 4,
                           ),

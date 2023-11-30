@@ -197,6 +197,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     );
   }
 
+// movies by genre
   FutureOr<void> onGetMoviesByGenreEvent(
     GetMoviesByGenreEvent event,
     Emitter<MovieState> emit,
@@ -219,6 +220,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     );
   }
 
+// movies by query
   FutureOr<void> onGetMoviesByQueryEvent(
     GetMoviesByQueryEvent event,
     Emitter<MovieState> emit,
@@ -241,6 +243,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     );
   }
 
+// search bar focus
   FutureOr<void> onSearchBarFocusEvent(
     SearchBarFocusEvent event,
     Emitter<MovieState> emit,

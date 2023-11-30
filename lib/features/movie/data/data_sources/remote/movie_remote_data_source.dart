@@ -34,7 +34,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getPopularMovies(int page) async {
-    final response = await dio.get('${APIConstant.popularUrl}$page');
+    final response = await dio.get(Helper.generatePopularUrl(page));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data['results'] as List).map(
@@ -48,7 +48,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getTrendingMovies(int page) async {
-    final response = await dio.get('${APIConstant.trendingUrl}$page');
+    final response = await dio.get(Helper.generateTrendingUrl(page));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data['results'] as List).map(

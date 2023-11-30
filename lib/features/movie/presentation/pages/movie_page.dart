@@ -39,6 +39,9 @@ class _MoviePageState extends State<MoviePage> {
           style: Styles.textStyle(
             size: 26,
             weight: FontWeight.bold,
+            color: Helper.isDark(context)
+                ? AppColors.textColorDark
+                : AppColors.textColorLight,
           ),
         ),
       ),
@@ -132,10 +135,10 @@ class _MoviePageState extends State<MoviePage> {
             fillColor: Colors.transparent,
             hintText: 'Search Movie',
             contentPadding: const EdgeInsets.all(20),
-            border: Styles.outlineBoxDecoration(AppColors.grey),
-            enabledBorder: Styles.outlineBoxDecoration(AppColors.grey),
+            border: Styles.outlineBoxDecoration(AppColors.greyColor),
+            enabledBorder: Styles.outlineBoxDecoration(AppColors.greyColor),
             focusedBorder:
-                Styles.outlineBoxDecoration(AppColors.mediumDarkGrey),
+                Styles.outlineBoxDecoration(AppColors.mediumDarkGreyColor),
           ),
         ),
       ],

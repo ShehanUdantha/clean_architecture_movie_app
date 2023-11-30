@@ -1,3 +1,4 @@
+import '../../../../core/constant/colors.dart';
 import '../../../../core/constant/styles.dart';
 import 'movie_actors_widget.dart';
 import 'review_widget.dart';
@@ -40,7 +41,12 @@ class MovieDetailsWidget extends StatelessWidget {
                     Text(
                       'Storyline',
                       textAlign: TextAlign.start,
-                      style: Styles.textStyle(size: 20),
+                      style: Styles.textStyle(
+                        size: 20,
+                        color: Helper.isDark(context)
+                            ? AppColors.textColorDark
+                            : AppColors.textColorLight,
+                      ),
                     ),
                     const SizedBox(
                       height: 8,
@@ -56,6 +62,9 @@ class MovieDetailsWidget extends StatelessWidget {
                         style: Styles.textStyle(
                           size: 16,
                           weight: FontWeight.w300,
+                          color: Helper.isDark(context)
+                              ? AppColors.textColorDark
+                              : AppColors.textColorLight,
                         ),
                       ),
                     ),

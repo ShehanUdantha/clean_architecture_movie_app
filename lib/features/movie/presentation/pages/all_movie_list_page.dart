@@ -39,6 +39,9 @@ _appBarWidget(String title, BuildContext context) {
       style: Styles.textStyle(
         size: 18,
         weight: FontWeight.bold,
+        color: Helper.isDark(context)
+            ? AppColors.textColorDark
+            : AppColors.textColorLight,
       ),
       textAlign: TextAlign.center,
     ),
@@ -53,15 +56,19 @@ _appBarWidget(String title, BuildContext context) {
           child: Container(
             height: 45,
             width: 45,
-            decoration: const BoxDecoration(
-              color: AppColors.greyDark,
-              borderRadius: BorderRadius.all(
+            decoration: BoxDecoration(
+              color: Helper.isDark(context)
+                  ? AppColors.greyColorDark
+                  : AppColors.greyColorLight,
+              borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
             ),
-            child: const Icon(
+            child: Icon(
               Iconsax.arrow_circle_left,
-              color: AppColors.textColor,
+              color: Helper.isDark(context)
+                  ? AppColors.purpleColorDark
+                  : AppColors.purpleColorLight,
             ),
           ),
         ),

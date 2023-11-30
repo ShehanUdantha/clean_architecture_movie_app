@@ -41,20 +41,7 @@ class BackDropImageWidget extends StatelessWidget {
             ),
             Container(
               height: Helper.screeHeight(context) * 0.452,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.dark.withOpacity(1),
-                    AppColors.dark.withOpacity(0),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  stops: const [
-                    0.0,
-                    0.9,
-                  ],
-                ),
-              ),
+              decoration: Styles.linearBoxDecoration(radius: 0),
             ),
             Positioned(
               bottom: 33,
@@ -117,7 +104,7 @@ class BackDropImageWidget extends StatelessWidget {
                   Text(
                     movieDetails.voteAverage.toStringAsFixed(1),
                     style: Styles.textStyle(
-                      color: AppColors.grey,
+                      color: AppColors.greyColor,
                       weight: FontWeight.normal,
                     ),
                   ),
@@ -127,7 +114,7 @@ class BackDropImageWidget extends StatelessWidget {
                   Text(
                     '(${movieDetails.voteCount})',
                     style: Styles.textStyle(
-                      color: AppColors.grey,
+                      color: AppColors.greyColor,
                       weight: FontWeight.normal,
                     ),
                   ),
@@ -201,15 +188,19 @@ class BackDropImageWidget extends StatelessWidget {
                 child: Container(
                   height: 45,
                   width: 45,
-                  decoration: const BoxDecoration(
-                    color: AppColors.greyDark,
-                    borderRadius: BorderRadius.all(
+                  decoration: BoxDecoration(
+                    color: Helper.isDark(context)
+                        ? AppColors.greyColorDark
+                        : AppColors.greyColorLight,
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(15),
                     ),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Iconsax.arrow_circle_left,
-                    color: Colors.white,
+                    color: Helper.isDark(context)
+                        ? AppColors.purpleColorDark
+                        : AppColors.purpleColorLight,
                   ),
                 ),
               ),
@@ -229,16 +220,21 @@ class BackDropImageWidget extends StatelessWidget {
                 child: Container(
                   height: 45,
                   width: 45,
-                  decoration: const BoxDecoration(
-                    color: AppColors.greyDark,
-                    borderRadius: BorderRadius.all(
+                  decoration: BoxDecoration(
+                    color: Helper.isDark(context)
+                        ? AppColors.greyColorDark
+                        : AppColors.greyColorLight,
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(15),
                     ),
                   ),
                   child: Icon(
                     Iconsax.heart,
-                    color:
-                        isFavorite ? AppColors.redColor : AppColors.textColor,
+                    color: isFavorite
+                        ? AppColors.redColor
+                        : Helper.isDark(context)
+                            ? AppColors.purpleColorDark
+                            : AppColors.purpleColorLight,
                   ),
                 ),
               ),

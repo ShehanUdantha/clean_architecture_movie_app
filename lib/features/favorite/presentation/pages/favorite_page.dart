@@ -1,3 +1,4 @@
+import '../../../../core/constant/colors.dart';
 import '../../../../core/utils/helper.dart';
 import '../bloc/favorite/favorite_bloc.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,13 @@ class FavoritePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'MovieRay',
-          style: Styles.textStyle(size: 26, weight: FontWeight.bold),
+          style: Styles.textStyle(
+            size: 26,
+            weight: FontWeight.bold,
+            color: Helper.isDark(context)
+                ? AppColors.textColorDark
+                : AppColors.textColorLight,
+          ),
         ),
       ),
       body: SafeArea(

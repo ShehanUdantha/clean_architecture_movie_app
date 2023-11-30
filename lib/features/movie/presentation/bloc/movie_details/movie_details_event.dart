@@ -7,12 +7,14 @@ abstract class MovieDetailsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// movie details get event
 class GetMovieDetailsEvent extends MovieDetailsEvent {
   final int movieId;
 
   const GetMovieDetailsEvent({required this.movieId});
 }
 
+// favorite movie events
 class AddMovieToFavoriteEvent extends MovieDetailsEvent {
   final MovieDetailsEntity movie;
 

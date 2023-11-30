@@ -11,11 +11,3 @@ class ServerFailure extends Failure {
 class LocalDBFailure extends Failure {
   const LocalDBFailure({required super.errorMessage});
 }
-
-class CacheFailure extends Failure {
-  const CacheFailure({required super.errorMessage});
-}
-
-class NetworkFailure extends Failure {
-  const NetworkFailure({required super.errorMessage});
-}

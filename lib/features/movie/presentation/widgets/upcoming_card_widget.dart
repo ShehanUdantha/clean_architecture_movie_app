@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/constant/api_constant.dart';
 import '../../../../core/constant/styles.dart';
@@ -29,8 +30,11 @@ class UpComingCardWidget extends StatelessWidget {
                 ),
               ),
             ),
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
+            placeholder: (context, url) => Center(
+              child: Lottie.asset(
+                'assets/lotties/loading.json',
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Container(

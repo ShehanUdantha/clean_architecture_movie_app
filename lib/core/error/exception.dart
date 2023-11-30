@@ -3,9 +3,3 @@ class ServerException implements Exception {
 
   ServerException({required this.errorMessage});
 }
-
-class CacheException implements Exception {
-  final String errorMessage;
-
-  CacheException({required this.errorMessage});
-}
