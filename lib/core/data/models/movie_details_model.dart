@@ -21,6 +21,7 @@ class MovieDetailsModel extends MovieDetailsEntity {
     genres,
     reviews,
     credits,
+    isFavorite,
   }) : super(
           id: id,
           title: title,
@@ -50,7 +51,9 @@ class MovieDetailsModel extends MovieDetailsEntity {
         runtime: map['runtime'],
         voteCount: map['vote_count'],
         tagline: map['tagline'],
-        videos: map['videos']['results'][0]['key'] ?? '',
+        videos: (map['videos']['results'] as List).isNotEmpty
+            ? map['videos']['results'][0]['key']
+            : '',
         genres: List<String>.from(
           (map['genres'] as List).map(
             (e) => e['name'],

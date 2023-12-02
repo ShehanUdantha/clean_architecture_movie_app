@@ -1,11 +1,10 @@
 import '../../../constant/db_constant.dart';
 import '../../models/movie_details_model.dart';
-import '../../models/movie_favorite_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 abstract class MovieLocalDataSource {
-  Future<MovieFavoriteModel> addMovie(MovieDetailsModel movie);
+  Future<List<MovieDetailsModel>> addMovie(MovieDetailsModel movie);
   Future<List<MovieDetailsModel>> getAllMovies();
   Future<List<MovieDetailsModel>> removeMovie(int id);
   Future<bool> checkFavorite(int id);
@@ -28,7 +27,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
           ${DBConstant.columnYear} TEXT ,
           ${DBConstant.columnVoteAverage} DOUBLE ,
           ${DBConstant.columnVoteCount} INTEGER ,
-          ${DBConstant.columnDescription} TEXT
+          ${DBConstant.columnDescription} TEXT 
         )''');
       },
     );
@@ -54,12 +53,12 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   }
 
   @override
-  Future<MovieFavoriteModel> addMovie(MovieDetailsModel movie) async {
+  Future<List<MovieDetailsModel>> addMovie(MovieDetailsModel movie) async {
     final db = await initDatabase();
 
     final result = await checkDuplicate(movie.id, DBConstant.columnMovieId);
 
-    int id = result
+    result
         ? await db.insert(DBConstant.dbTableMovie, {
             DBConstant.columnMovieId: movie.id,
             DBConstant.columnTitle: movie.title,
@@ -69,11 +68,8 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
             DBConstant.columnVoteCount: movie.voteCount,
             DBConstant.columnDescription: movie.overview,
           })
-        : 0;
-
-    final movieList = await getAllMovies();
-
-    return MovieFavoriteModel(id: id, movieList: movieList);
+        : null;
+    return await getAllMovies();
   }
 
   @override
@@ -93,9 +89,15 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
     return await getAllMovies();
   }
 
-  // return value should be false
+  // return value should be false, if id already in the db
   @override
   Future<bool> checkFavorite(int id) async {
-    return await checkDuplicate(id, DBConstant.columnMovieId);
+    // wait for the half of second to store a data before check value
+    return Future.delayed(
+      const Duration(
+        milliseconds: 500,
+      ),
+      () async => await checkDuplicate(id, DBConstant.columnMovieId),
+    );
   }
 }

@@ -209,14 +209,11 @@ class BackDropImageWidget extends StatelessWidget {
               top: 10,
               right: 10,
               child: GestureDetector(
-                onTap: () {
-                  context
-                      .read<MovieDetailsBloc>()
-                      .add(AddMovieToFavoriteEvent(movie: movieDetails));
-                  context
-                      .read<MovieDetailsBloc>()
-                      .add(CheckMovieISFavoriteOrNotEvent(movieDetails.id));
-                },
+                onTap: () => checkIsFavOrNotBeforeSubmit(
+                  context,
+                  isFavorite,
+                  movieDetails,
+                ),
                 child: Container(
                   height: 45,
                   width: 45,
@@ -244,4 +241,20 @@ class BackDropImageWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+void checkIsFavOrNotBeforeSubmit(
+    BuildContext context, bool isFav, MovieDetailsEntity movieDetails) {
+  if (isFav) {
+    context
+        .read<MovieDetailsBloc>()
+        .add(ClickedFavoriteButtonToDelete(movieId: movieDetails.id));
+  } else {
+    context
+        .read<MovieDetailsBloc>()
+        .add(ClickedFavoriteButtonToAdd(movie: movieDetails));
+  }
+  context
+      .read<MovieDetailsBloc>()
+      .add(CheckMovieISFavoriteOrNotEvent(movieId: movieDetails.id));
 }

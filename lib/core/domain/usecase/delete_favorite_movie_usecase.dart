@@ -1,7 +1,7 @@
-import '../../../../core/domain/entities/movie_details_entity.dart';
-import '../../../../core/domain/usecase/usecase.dart';
-import '../../../../core/error/failure.dart';
-import '../repositories/favorite_repository.dart';
+import '../entities/movie_details_entity.dart';
+import 'usecase.dart';
+import '../../error/failure.dart';
+import '../../../features/favorite/domain/repositories/favorite_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class DeleteFavoriteMovieUseCase

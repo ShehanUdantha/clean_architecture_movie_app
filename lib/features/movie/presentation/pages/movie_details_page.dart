@@ -23,7 +23,7 @@ class MovieDetailsPage extends StatelessWidget {
       create: (context) => sl<MovieDetailsBloc>()
         ..add(GetMovieDetailsEvent(movieId: movieId))
         ..add(
-          CheckMovieISFavoriteOrNotEvent(movieId),
+          CheckMovieISFavoriteOrNotEvent(movieId: movieId),
         ),
       child: Scaffold(
         body: _bodyWidget(),
@@ -34,12 +34,15 @@ class MovieDetailsPage extends StatelessWidget {
 
 _bodyWidget() {
   return BlocConsumer<MovieDetailsBloc, MovieDetailsState>(
-    listenWhen: (previous, current) => current.recodeId > previous.recodeId,
+    listenWhen: (previous, current) =>
+        current.isFavorite != previous.isFavorite,
     listener: (context, state) {
-      Helper.showSnackBar(context, 'Movie added to the favorite!');
-      context
-          .read<FavoriteBloc>()
-          .add(UpdateFavoriteMoviesEvent(state.addedList));
+      if (state.snackMessage != '') {
+        Helper.showSnackBar(context, state.snackMessage);
+        context
+            .read<FavoriteBloc>()
+            .add(UpdateFavoriteMoviesEvent(state.addedList));
+      }
     },
     builder: (context, state) {
       switch (state.status) {

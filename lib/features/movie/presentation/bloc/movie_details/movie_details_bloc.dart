@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:clean_architecture_movie_app/core/constant/strings.dart';
+import 'package:clean_architecture_movie_app/core/domain/usecase/delete_favorite_movie_usecase.dart';
 import '../../../domain/usecases/check_movie_favorite_or_not_usecase.dart';
 import '../../../../../core/utils/enum.dart';
 import '../../../../../core/domain/entities/movie_details_entity.dart';
@@ -15,13 +17,16 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
   final GetMovieDetailsUseCase getMovieDetailsUseCase;
   final AddMovieToFavoriteUseCase addMovieToFavoriteUseCase;
   final CheckMovieFavoriteOrNotUseCase checkMovieFavoriteOrNotUseCase;
+  final DeleteFavoriteMovieUseCase deleteFavoriteMovieUseCase;
   MovieDetailsBloc(
     this.getMovieDetailsUseCase,
     this.addMovieToFavoriteUseCase,
     this.checkMovieFavoriteOrNotUseCase,
+    this.deleteFavoriteMovieUseCase,
   ) : super(const MovieDetailsState()) {
     on<GetMovieDetailsEvent>(onGetMovieDetailsEvent);
-    on<AddMovieToFavoriteEvent>(onAddMovieToFavoriteEvent);
+    on<ClickedFavoriteButtonToAdd>(onClickedFavoriteButtonToAdd);
+    on<ClickedFavoriteButtonToDelete>(onClickedFavoriteButtonToDelete);
     on<CheckMovieISFavoriteOrNotEvent>(onCheckMovieISFavoriteOrNotEvent);
   }
 
@@ -49,21 +54,44 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
   }
 
 // favorite movies
-  FutureOr<void> onAddMovieToFavoriteEvent(
-    AddMovieToFavoriteEvent event,
+  FutureOr<void> onClickedFavoriteButtonToAdd(
+    ClickedFavoriteButtonToAdd event,
     Emitter<MovieDetailsState> emit,
   ) async {
     final result = await addMovieToFavoriteUseCase.call(event.movie);
     result.fold(
       (l) => emit(
         state.copyWith(
-          recordFailure: l.errorMessage,
+          localFavoriteFailure: l.errorMessage,
+        ),
+      ),
+      (r) {
+        emit(
+          state.copyWith(
+            addedList: r,
+            snackMessage: Strings.movieAdded,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> onClickedFavoriteButtonToDelete(
+    ClickedFavoriteButtonToDelete event,
+    Emitter<MovieDetailsState> emit,
+  ) async {
+    final result = await deleteFavoriteMovieUseCase.call(event.movieId);
+
+    result.fold(
+      (l) => emit(
+        state.copyWith(
+          localFavoriteFailure: l.errorMessage,
         ),
       ),
       (r) => emit(
         state.copyWith(
-          recodeId: r.id,
-          addedList: r.movieList,
+          addedList: r,
+          snackMessage: Strings.movieRemoved,
         ),
       ),
     );
@@ -74,13 +102,12 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     Emitter<MovieDetailsState> emit,
   ) async {
     final result = await checkMovieFavoriteOrNotUseCase.call(event.movieId);
-    result.fold(
-      (l) => null,
-      (r) => emit(
+    result.fold((l) => null, (r) {
+      emit(
         state.copyWith(
           isFavorite: !r,
         ),
-      ),
-    );
+      );
+    });
   }
 }

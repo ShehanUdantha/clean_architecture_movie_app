@@ -1,3 +1,5 @@
+import 'package:clean_architecture_movie_app/core/constant/strings.dart';
+
 import '../../../../core/constant/colors.dart';
 import '../../../../core/utils/helper.dart';
 import '../bloc/favorite/favorite_bloc.dart';
@@ -40,7 +42,10 @@ _bodyWidget() {
   return BlocConsumer<FavoriteBloc, FavoriteState>(
     listenWhen: (previous, current) => current is FavoriteActionState,
     listener: (context, state) {
-      Helper.showSnackBar(context, 'Movie deleted from favorite!');
+      Helper.showSnackBar(context, Strings.movieRemoved);
+      // not fixed yet
+      // sl<MovieDetailsBloc>()
+      //     .add(CheckMovieISFavoriteOrNotEvent(movieId: state.id));
     },
     buildWhen: (previous, current) => current is! FavoriteActionState,
     builder: (context, state) {
@@ -64,7 +69,7 @@ _bodyWidget() {
             );
           } else {
             return const Center(
-              child: Text('Movie not added yet'),
+              child: Text(Strings.moviesNotAddedYet),
             );
           }
 

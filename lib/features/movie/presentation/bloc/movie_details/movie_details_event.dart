@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'movie_details_bloc.dart';
 
 abstract class MovieDetailsEvent extends Equatable {
@@ -15,14 +16,20 @@ class GetMovieDetailsEvent extends MovieDetailsEvent {
 }
 
 // favorite movie events
-class AddMovieToFavoriteEvent extends MovieDetailsEvent {
+class ClickedFavoriteButtonToAdd extends MovieDetailsEvent {
   final MovieDetailsEntity movie;
 
-  const AddMovieToFavoriteEvent({required this.movie});
+  const ClickedFavoriteButtonToAdd({required this.movie});
+}
+
+class ClickedFavoriteButtonToDelete extends MovieDetailsEvent {
+  final int movieId;
+
+  const ClickedFavoriteButtonToDelete({required this.movieId});
 }
 
 class CheckMovieISFavoriteOrNotEvent extends MovieDetailsEvent {
   final int movieId;
 
-  const CheckMovieISFavoriteOrNotEvent(this.movieId);
+  const CheckMovieISFavoriteOrNotEvent({required this.movieId});
 }

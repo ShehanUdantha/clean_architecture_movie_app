@@ -4,10 +4,10 @@ class MovieDetailsState extends Equatable {
   final MovieDetailsEntity movieDetails;
   final BlocStates status;
   final String failure;
-  final int recodeId;
-  final String recordFailure;
+  final String localFavoriteFailure;
   final List<MovieDetailsEntity> addedList;
   final bool isFavorite;
+  final String snackMessage;
 
   const MovieDetailsState({
     this.movieDetails = const MovieDetailsEntity(
@@ -28,29 +28,29 @@ class MovieDetailsState extends Equatable {
     ),
     this.failure = '',
     this.status = BlocStates.initial,
-    this.recodeId = 0,
-    this.recordFailure = '',
+    this.localFavoriteFailure = '',
     this.addedList = const [],
     this.isFavorite = false,
+    this.snackMessage = '',
   });
 
   MovieDetailsState copyWith({
     MovieDetailsEntity? movieDetails,
     BlocStates? status,
     String? failure,
-    int? recodeId,
-    String? recordFailure,
+    String? localFavoriteFailure,
     List<MovieDetailsEntity>? addedList,
     bool? isFavorite,
+    String? snackMessage,
   }) {
     return MovieDetailsState(
       movieDetails: movieDetails ?? this.movieDetails,
       failure: failure ?? this.failure,
       status: status ?? this.status,
-      recodeId: recodeId ?? this.recodeId,
-      recordFailure: recordFailure ?? this.recordFailure,
+      localFavoriteFailure: localFavoriteFailure ?? this.localFavoriteFailure,
       addedList: addedList ?? this.addedList,
       isFavorite: isFavorite ?? this.isFavorite,
+      snackMessage: snackMessage ?? this.snackMessage,
     );
   }
 
@@ -59,9 +59,11 @@ class MovieDetailsState extends Equatable {
         movieDetails,
         failure,
         status,
-        recodeId,
-        recordFailure,
+        localFavoriteFailure,
         addedList,
         isFavorite,
+        snackMessage,
       ];
 }
+
+class MovieDetailsActionState extends MovieDetailsState {}

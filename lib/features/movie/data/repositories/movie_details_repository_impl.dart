@@ -4,7 +4,6 @@ import '../../domain/repositories/movie_details_repository.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/data/data_sources/local/movie_local_data_source.dart';
-import '../../../../core/domain/entities/movie_favorite_entity.dart';
 import '../../../../core/error/exception.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/data/models/movie_details_model.dart';
@@ -28,7 +27,7 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, MovieFavoriteEntity>> addMovieToFavorite(
+  Future<Either<Failure, List<MovieDetailsModel>>> addMovieToFavorite(
       MovieDetailsEntity movie) async {
     try {
       final result = await movieLocalDataSource
@@ -43,6 +42,17 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
   Future<Either<Failure, bool>> checkMovieFavorite(int movieId) async {
     try {
       final result = await movieLocalDataSource.checkFavorite(movieId);
+      return Right(result);
+    } catch (e) {
+      return Left(LocalDBFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieDetailsModel>>> deleteFavoriteMovie(
+      int id) async {
+    try {
+      final result = await movieLocalDataSource.removeMovie(id);
       return Right(result);
     } catch (e) {
       return Left(LocalDBFailure(errorMessage: e.toString()));

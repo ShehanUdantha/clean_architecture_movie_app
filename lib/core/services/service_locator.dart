@@ -1,7 +1,7 @@
 import '../data/data_sources/local/movie_local_data_source.dart';
 import '../../features/favorite/data/repositories/favorite_repository_impl.dart';
 import '../../features/favorite/domain/repositories/favorite_repository.dart';
-import '../../features/favorite/domain/usecases/delete_favorite_movie_usecase.dart';
+import '../domain/usecase/delete_favorite_movie_usecase.dart';
 import '../../features/favorite/domain/usecases/get_all_favorite_movies_usecase.dart';
 import '../../features/favorite/presentation/bloc/favorite/favorite_bloc.dart';
 import '../../features/movie/data/data_sources/remote/movie_details_remote_data_source.dart';
@@ -65,6 +65,6 @@ Future<void> serviceLocator() async {
   // blocs
   sl.registerFactory<MovieBloc>(() => MovieBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<MovieDetailsBloc>(
-      () => MovieDetailsBloc(sl(), sl(), sl()));
+      () => MovieDetailsBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<FavoriteBloc>(() => FavoriteBloc(sl(), sl()));
 }

@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:clean_architecture_movie_app/core/domain/usecase/usecase.dart';
-import 'package:clean_architecture_movie_app/features/favorite/domain/usecases/delete_favorite_movie_usecase.dart';
+import 'package:clean_architecture_movie_app/core/domain/usecase/delete_favorite_movie_usecase.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:clean_architecture_movie_app/core/domain/entities/movie_details_entity.dart';
@@ -51,7 +51,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FutureOr<void> onUpdateFavoriteMoviesEvent(
     UpdateFavoriteMoviesEvent event,
     Emitter<FavoriteState> emit,
-  ) async {
+  ) {
     emit(
       state.copyWith(
         favoriteStatus: BlocStates.success,
@@ -80,7 +80,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
             favoriteMoviesList: r,
           ),
         );
-        emit(FavoriteActionState());
+
+        emit(FavoriteActionState(event.movieId));
       },
     );
   }
