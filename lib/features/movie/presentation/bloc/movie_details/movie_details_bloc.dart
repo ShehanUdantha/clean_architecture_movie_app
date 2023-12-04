@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:clean_architecture_movie_app/core/constant/strings.dart';
-import 'package:clean_architecture_movie_app/core/domain/usecase/delete_favorite_movie_usecase.dart';
+import '../../../../../core/constant/strings.dart';
+import '../../../../../core/domain/usecase/delete_favorite_movie_usecase.dart';
 import '../../../domain/usecases/check_movie_favorite_or_not_usecase.dart';
 import '../../../../../core/utils/enum.dart';
 import '../../../../../core/domain/entities/movie_details_entity.dart';
@@ -102,12 +102,13 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     Emitter<MovieDetailsState> emit,
   ) async {
     final result = await checkMovieFavoriteOrNotUseCase.call(event.movieId);
-    result.fold((l) => null, (r) {
-      emit(
+    result.fold(
+      (l) => null,
+      (r) => emit(
         state.copyWith(
           isFavorite: !r,
         ),
-      );
-    });
+      ),
+    );
   }
 }

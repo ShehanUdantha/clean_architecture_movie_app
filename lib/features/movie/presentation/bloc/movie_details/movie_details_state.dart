@@ -65,5 +65,3 @@ class MovieDetailsState extends Equatable {
         snackMessage,
       ];
 }
-
-class MovieDetailsActionState extends MovieDetailsState {}

@@ -1,8 +1,10 @@
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/constant/route_names.dart';
 import '../../../../core/constant/styles.dart';
 
 import '../../../../core/presentation/widgets/list_horizontal_card_widget.dart';
 import '../bloc/movie/movie_bloc.dart';
-import 'movie_details_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/enum.dart';
@@ -52,7 +54,7 @@ class _MoviePageState extends State<MoviePage> {
   Widget _bodyWidget(BuildContext context) {
     return WillPopScope(
       // check if user want to go back after using search feature
-      onWillPop: () => detectBackButton(searchController, context),
+      onWillPop: () => _detectBackButton(searchController, context),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0).copyWith(bottom: 0),
@@ -113,9 +115,9 @@ class _MoviePageState extends State<MoviePage> {
           controller: searchController,
           onChanged: (value) {
             if (value == '') {
-              clearSearchView(searchController, context);
+              _clearSearchView(searchController, context);
             } else {
-              getResultThroughSearchQuery(value, context);
+              _getResultThroughSearchQuery(value, context);
             }
           },
           onSubmitted: (value) {
@@ -128,7 +130,7 @@ class _MoviePageState extends State<MoviePage> {
             suffixIcon: state.isSearchBarFocus
                 ? IconButton(
                     onPressed: () {
-                      clearSearchView(searchController, context);
+                      _clearSearchView(searchController, context);
                     },
                     icon: const Icon(Iconsax.close_circle))
                 : const SizedBox(),
@@ -158,12 +160,11 @@ Widget _searchResult(BuildContext context, MovieState state) {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => MovieDetailsPage(
-                        movieId: state.allMoviesByQuery[index].id,
-                      ),
-                    ),
+                  context.goNamed(
+                    RouteNames.movieDetailsPageName,
+                    queryParameters: {
+                      'movieId': state.allMoviesByQuery[index].id.toString(),
+                    },
                   );
                 },
                 child: ListHorizontalCardWidget(
@@ -175,7 +176,7 @@ Widget _searchResult(BuildContext context, MovieState state) {
   );
 }
 
-void getResultThroughSearchQuery(
+void _getResultThroughSearchQuery(
   String value,
   BuildContext context,
 ) {
@@ -183,7 +184,7 @@ void getResultThroughSearchQuery(
   context.read<MovieBloc>().add(GetMoviesByQueryEvent(query: value));
 }
 
-void clearSearchView(
+void _clearSearchView(
   TextEditingController searchController,
   BuildContext context,
 ) {
@@ -191,13 +192,13 @@ void clearSearchView(
   context.read<MovieBloc>().add(const SearchBarFocusEvent(isFocus: false));
 }
 
-Future<bool> detectBackButton(
+Future<bool> _detectBackButton(
   TextEditingController searchController,
   BuildContext context,
 ) async {
   bool shouldCloseApp = false;
   if (searchController.text.isNotEmpty) {
-    clearSearchView(searchController, context);
+    _clearSearchView(searchController, context);
     shouldCloseApp = false;
   } else {
     shouldCloseApp = true;

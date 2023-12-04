@@ -4,12 +4,12 @@ import '../../../../core/constant/styles.dart';
 import '../../../../core/utils/helper.dart';
 
 class ListGenresCardWidget extends StatelessWidget {
+  final Map<String, dynamic> genre;
+
   const ListGenresCardWidget({
     super.key,
     required this.genre,
   });
-
-  final Map<String, dynamic> genre;
 
   @override
   Widget build(BuildContext context) {

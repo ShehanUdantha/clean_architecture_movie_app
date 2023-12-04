@@ -13,6 +13,7 @@ import '../../../../core/domain/entities/movie_details_entity.dart';
 class BackDropImageWidget extends StatelessWidget {
   final MovieDetailsEntity movieDetails;
   final bool isFavorite;
+
   const BackDropImageWidget({
     Key? key,
     required this.movieDetails,
@@ -209,7 +210,7 @@ class BackDropImageWidget extends StatelessWidget {
               top: 10,
               right: 10,
               child: GestureDetector(
-                onTap: () => checkIsFavOrNotBeforeSubmit(
+                onTap: () => _checkIsFavOrNotBeforeSubmit(
                   context,
                   isFavorite,
                   movieDetails,
@@ -243,7 +244,7 @@ class BackDropImageWidget extends StatelessWidget {
   }
 }
 
-void checkIsFavOrNotBeforeSubmit(
+void _checkIsFavOrNotBeforeSubmit(
     BuildContext context, bool isFav, MovieDetailsEntity movieDetails) {
   if (isFav) {
     context

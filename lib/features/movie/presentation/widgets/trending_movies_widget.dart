@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:clean_architecture_movie_app/features/movie/presentation/bloc/movie/movie_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/constant/route_names.dart';
 import '../../../../core/utils/enum.dart';
 import '../../../../core/presentation/widgets/list_vertical_card_widget.dart';
-import '../pages/movie_details_page.dart';
 
 class TrendingMoviesWidget extends StatelessWidget {
   final CardTypes type;
+
   const TrendingMoviesWidget({
     Key? key,
     required this.type,
@@ -43,12 +45,11 @@ _bodyWidget(CardTypes type) {
               if (index < state.trendingMovies.length) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => MovieDetailsPage(
-                          movieId: state.trendingMovies[index].id,
-                        ),
-                      ),
+                    context.goNamed(
+                      RouteNames.movieDetailsPageName,
+                      queryParameters: {
+                        'movieId': state.trendingMovies[index].id.toString(),
+                      },
                     );
                   },
                   child: type == CardTypes.vertical

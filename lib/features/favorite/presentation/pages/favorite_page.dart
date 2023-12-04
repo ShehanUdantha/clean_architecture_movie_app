@@ -1,14 +1,13 @@
-import 'package:clean_architecture_movie_app/core/constant/strings.dart';
-
-import '../../../../core/constant/colors.dart';
-import '../../../../core/utils/helper.dart';
-import '../bloc/favorite/favorite_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constant/colors.dart';
+import '../../../../core/constant/strings.dart';
 import '../../../../core/constant/styles.dart';
 import '../../../../core/presentation/widgets/list_horizontal_card_widget.dart';
 import '../../../../core/utils/enum.dart';
+import '../../../../core/utils/helper.dart';
+import '../bloc/favorite/favorite_bloc.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});

@@ -1,9 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:clean_architecture_movie_app/core/utils/enum.dart';
-import 'package:clean_architecture_movie_app/core/utils/helper.dart';
-import 'package:clean_architecture_movie_app/features/movie/presentation/bloc/movie/movie_bloc.dart';
-import 'package:clean_architecture_movie_app/features/movie/presentation/widgets/popular_movies_widget.dart';
-import 'package:clean_architecture_movie_app/features/movie/presentation/widgets/trending_movies_widget.dart';
+import '../../../../core/utils/enum.dart';
+import '../../../../core/utils/helper.dart';
+import '../widgets/popular_movies_widget.dart';
+import '../widgets/trending_movies_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -109,18 +107,5 @@ _getWidget(MoviesList? type) {
       );
     default:
       return const SizedBox();
-  }
-}
-
-getCurrentStatusType(MoviesList? type, MovieState state) {
-  switch (type) {
-    case MoviesList.upcoming:
-      return state.upcomingMoviesStatus;
-    case MoviesList.trending:
-      return state.trendingMoviesStatus;
-    case MoviesList.popular:
-      return state.popularMoviesStatus;
-    default:
-      return;
   }
 }

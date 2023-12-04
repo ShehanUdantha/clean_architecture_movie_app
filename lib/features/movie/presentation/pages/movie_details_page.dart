@@ -12,6 +12,7 @@ import '../widgets/movie_details_widget.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final int movieId;
+
   const MovieDetailsPage({
     Key? key,
     required this.movieId,

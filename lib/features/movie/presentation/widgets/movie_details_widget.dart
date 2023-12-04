@@ -10,6 +10,7 @@ import 'backdrop_image_widget.dart';
 class MovieDetailsWidget extends StatelessWidget {
   final MovieDetailsEntity movieDetails;
   final bool isFavorite;
+
   const MovieDetailsWidget({
     Key? key,
     required this.movieDetails,

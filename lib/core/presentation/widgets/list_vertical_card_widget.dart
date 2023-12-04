@@ -10,6 +10,7 @@ import '../../utils/helper.dart';
 
 class ListVerticalCardWidget extends StatelessWidget {
   final dynamic movie;
+
   const ListVerticalCardWidget({
     super.key,
     required this.movie,

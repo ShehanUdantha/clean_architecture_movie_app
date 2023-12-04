@@ -10,12 +10,12 @@ import '../../../../core/utils/helper.dart';
 import '../../../../core/domain/entities/movie_details_entity.dart';
 
 class ReviewWidget extends StatelessWidget {
+  final MovieDetailsEntity movieDetails;
+
   const ReviewWidget({
     super.key,
     required this.movieDetails,
   });
-
-  final MovieDetailsEntity movieDetails;
 
   @override
   Widget build(BuildContext context) {

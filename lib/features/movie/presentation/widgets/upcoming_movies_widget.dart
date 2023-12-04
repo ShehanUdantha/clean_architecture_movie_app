@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/constant/route_names.dart';
 import '../../../../core/utils/enum.dart';
 import '../../../../core/utils/helper.dart';
 import '../bloc/movie/movie_bloc.dart';
-import '../pages/movie_details_page.dart';
 import 'upcoming_card_widget.dart';
 
 class UpComingMoviesWidget extends StatelessWidget {
@@ -33,12 +34,11 @@ _bodyWidget() {
               itemBuilder: ((context, index, realIndex) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => MovieDetailsPage(
-                          movieId: state.upcomingMovies[index].id,
-                        ),
-                      ),
+                    context.goNamed(
+                      RouteNames.movieDetailsPageName,
+                      queryParameters: {
+                        'movieId': state.upcomingMovies[index].id.toString(),
+                      },
                     );
                   },
                   child: UpComingCardWidget(movie: state.upcomingMovies[index]),

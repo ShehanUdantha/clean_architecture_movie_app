@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
+import '../../../../../core/data/models/movie_details_model.dart';
 import '../../../../../core/error/exception.dart';
 import '../../../../../core/utils/helper.dart';
-import '../../../../../core/data/models/movie_details_model.dart';
 
 abstract class MovieDetailsRemoteDataSource {
   Future<MovieDetailsModel> getMovieDetails(int movieId);

@@ -1,15 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clean_architecture_movie_app/core/constant/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/presentation/widgets/list_horizontal_card_widget.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/utils/enum.dart';
-import '../../../../core/presentation/widgets/list_horizontal_card_widget.dart';
 import '../bloc/movie/movie_bloc.dart';
-import '../pages/movie_details_page.dart';
 
 class GenreMoviesWidget extends StatelessWidget {
   final int id;
+
   const GenreMoviesWidget({
     Key? key,
     required this.id,
@@ -40,12 +42,11 @@ _bodyWidget(int id) {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => MovieDetailsPage(
-                          movieId: state.allMoviesByGenres[index].id,
-                        ),
-                      ),
+                    context.goNamed(
+                      RouteNames.movieDetailsPageName,
+                      queryParameters: {
+                        'movieId': state.allMoviesByGenres[index].id.toString(),
+                      },
                     );
                   },
                   child: ListHorizontalCardWidget(

@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
+
 import '../../../../core/constant/lists.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/all_movie_list_page.dart';
+import '../../../../core/constant/route_names.dart';
 import 'genre_card_widget.dart';
 
 class GenresWidget extends StatelessWidget {
@@ -21,13 +23,12 @@ _bodyWidget() {
     itemBuilder: (context, index) {
       return GestureDetector(
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AllMoviePage(
-                title: genres[index]['name'],
-                genreId: genres[index]['id'],
-              ),
-            ),
+          context.goNamed(
+            RouteNames.allMoviePageName,
+            queryParameters: {
+              'title': genres[index]['name'],
+              'genreId': genres[index]['id'].toString(),
+            },
           );
         },
         child: ListGenresCardWidget(genre: genres[index]),

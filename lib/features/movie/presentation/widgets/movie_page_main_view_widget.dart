@@ -1,3 +1,6 @@
+import '../../../../core/constant/route_names.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../../../core/constant/colors.dart';
 
 import '../../../../core/constant/styles.dart';
@@ -9,12 +12,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/enum.dart';
 import '../../../../core/utils/helper.dart';
-import '../pages/all_movie_list_page.dart';
 
 class MoviePageMainViewWidget extends StatelessWidget {
-  const MoviePageMainViewWidget({
-    super.key,
-  });
+  const MoviePageMainViewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,12 @@ class MoviePageMainViewWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const AllMoviePage(
-                      title: 'Trending',
-                      type: MoviesList.trending,
-                    ),
-                  ),
+                context.goNamed(
+                  RouteNames.allMoviePageName,
+                  queryParameters: {
+                    'title': 'Trending',
+                    'type': 'trending',
+                  },
                 );
               },
               child: Text(
@@ -116,13 +115,12 @@ class MoviePageMainViewWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const AllMoviePage(
-                      title: 'Popular',
-                      type: MoviesList.popular,
-                    ),
-                  ),
+                context.goNamed(
+                  RouteNames.allMoviePageName,
+                  queryParameters: {
+                    'title': 'Popular',
+                    'type': 'popular',
+                  },
                 );
               },
               child: Text(

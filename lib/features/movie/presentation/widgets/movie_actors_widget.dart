@@ -10,6 +10,7 @@ import '../../../../core/utils/helper.dart';
 
 class MovieActorsWidget extends StatelessWidget {
   final List<MovieCreditEntity> movieCreditEntity;
+
   const MovieActorsWidget({
     Key? key,
     required this.movieCreditEntity,

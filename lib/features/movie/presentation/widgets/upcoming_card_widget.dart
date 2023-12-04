@@ -9,7 +9,11 @@ import '../../domain/entities/movie_entity.dart';
 
 class UpComingCardWidget extends StatelessWidget {
   final MovieEntity movie;
-  const UpComingCardWidget({super.key, required this.movie});
+
+  const UpComingCardWidget({
+    super.key,
+    required this.movie,
+  });
 
   @override
   Widget build(BuildContext context) {

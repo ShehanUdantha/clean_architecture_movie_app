@@ -7,6 +7,7 @@ import '../../utils/helper.dart';
 
 class HomePage extends StatefulWidget {
   final StatefulNavigationShell statefulNavigationShell;
+
   const HomePage({
     Key? key,
     required this.statefulNavigationShell,
@@ -30,13 +31,13 @@ class _HomePageState extends State<HomePage> {
               : AppColors.purpleColorLight,
           unselectedItemColor: AppColors.mediumGreyColor,
           elevation: 10,
-          onTap: (value) => goToBranch(value),
+          onTap: (value) => _goToBranch(value),
         ),
       ),
     );
   }
 
-  void goToBranch(int index) {
+  void _goToBranch(int index) {
     widget.statefulNavigationShell.goBranch(
       index,
       initialLocation: index == widget.statefulNavigationShell.currentIndex,

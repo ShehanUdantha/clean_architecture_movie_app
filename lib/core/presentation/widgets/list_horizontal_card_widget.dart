@@ -13,6 +13,7 @@ import '../../utils/helper.dart';
 class ListHorizontalCardWidget extends StatelessWidget {
   final dynamic movie;
   final bool isFav;
+
   const ListHorizontalCardWidget({
     Key? key,
     required this.movie,

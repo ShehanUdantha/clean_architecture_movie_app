@@ -1,3 +1,5 @@
+import 'enum.dart';
+
 import '../constant/lists.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -76,5 +78,18 @@ class Helper {
         content: Text(message),
       ),
     );
+  }
+
+  static getMovieListName(String type) {
+    switch (type) {
+      case 'upcoming':
+        return MoviesList.upcoming;
+      case 'trending':
+        return MoviesList.trending;
+      case 'popular':
+        return MoviesList.popular;
+      default:
+        return;
+    }
   }
 }

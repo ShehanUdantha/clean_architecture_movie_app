@@ -1,7 +1,8 @@
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
 import '../../../constant/db_constant.dart';
 import '../../models/movie_details_model.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 abstract class MovieLocalDataSource {
   Future<List<MovieDetailsModel>> addMovie(MovieDetailsModel movie);
