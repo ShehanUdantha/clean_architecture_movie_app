@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
 import '../../constant/colors.dart';
-import '../../../features/favorite/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../constant/api_constant.dart';
@@ -13,11 +11,13 @@ import '../../utils/helper.dart';
 class ListHorizontalCardWidget extends StatelessWidget {
   final dynamic movie;
   final bool isFav;
+  final Function? function;
 
   const ListHorizontalCardWidget({
     Key? key,
     required this.movie,
     this.isFav = false,
+    this.function,
   }) : super(key: key);
 
   @override
@@ -182,17 +182,26 @@ class ListHorizontalCardWidget extends StatelessWidget {
           ),
           isFav
               ? Positioned(
-                  top: 0,
-                  right: 0,
-                  child: IconButton(
-                    onPressed: () {
-                      context
-                          .read<FavoriteBloc>()
-                          .add(DeleteFavoriteMovieEvent(movieId: movie.id));
-                    },
-                    icon: const Icon(
-                      Iconsax.bag,
-                      color: AppColors.redColor,
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.purpleColorDark,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(50.0),
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: () => function!(),
+                      icon: const Icon(
+                        Iconsax.bag,
+                        size: 16,
+                        color: AppColors.redColor,
+                      ),
                     ),
                   ),
                 )

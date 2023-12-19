@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import '../../../../../core/constant/strings.dart';
 import '../../../../../core/domain/usecase/delete_favorite_movie_usecase.dart';
 import '../../../domain/usecases/check_movie_favorite_or_not_usecase.dart';
 import '../../../../../core/utils/enum.dart';
@@ -28,6 +27,8 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     on<ClickedFavoriteButtonToAdd>(onClickedFavoriteButtonToAdd);
     on<ClickedFavoriteButtonToDelete>(onClickedFavoriteButtonToDelete);
     on<CheckMovieISFavoriteOrNotEvent>(onCheckMovieISFavoriteOrNotEvent);
+    on<SetMovieDetailsStatusToDefaultEvent>(
+        onSetMovieDetailsStatusToDefaultEvent);
   }
 
 // movie details
@@ -62,17 +63,16 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     result.fold(
       (l) => emit(
         state.copyWith(
+          actionStatus: BlocStates.error,
           localFavoriteFailure: l.errorMessage,
         ),
       ),
-      (r) {
-        emit(
-          state.copyWith(
-            addedList: r,
-            snackMessage: Strings.movieAdded,
-          ),
-        );
-      },
+      (r) => emit(
+        state.copyWith(
+          snackMessage: 'added',
+          actionStatus: BlocStates.success,
+        ),
+      ),
     );
   }
 
@@ -85,13 +85,14 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     result.fold(
       (l) => emit(
         state.copyWith(
+          actionStatus: BlocStates.error,
           localFavoriteFailure: l.errorMessage,
         ),
       ),
       (r) => emit(
         state.copyWith(
-          addedList: r,
-          snackMessage: Strings.movieRemoved,
+          snackMessage: 'removed',
+          actionStatus: BlocStates.success,
         ),
       ),
     );
@@ -108,6 +109,18 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
         state.copyWith(
           isFavorite: !r,
         ),
+      ),
+    );
+  }
+
+  FutureOr<void> onSetMovieDetailsStatusToDefaultEvent(
+    SetMovieDetailsStatusToDefaultEvent event,
+    Emitter<MovieDetailsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        snackMessage: '',
+        actionStatus: BlocStates.initial,
       ),
     );
   }

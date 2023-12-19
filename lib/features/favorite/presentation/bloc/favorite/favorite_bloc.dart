@@ -21,8 +21,9 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     this.deleteFavoriteMovieUseCase,
   ) : super(const FavoriteState()) {
     on<GetAllFavoriteMoviesEvent>(onGetAllFavoriteMoviesEvent);
-    on<UpdateFavoriteMoviesEvent>(onUpdateFavoriteMoviesEvent);
     on<DeleteFavoriteMovieEvent>(onDeleteFavoriteMovieEvent);
+    on<SetFavoriteToDefault>(onSetFavoriteToDefault);
+    on<UpdateFavoriteMoviesEvent>(onUpdateFavoriteMoviesEvent);
   }
 
   FutureOr<void> onGetAllFavoriteMoviesEvent(
@@ -51,11 +52,20 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FutureOr<void> onUpdateFavoriteMoviesEvent(
     UpdateFavoriteMoviesEvent event,
     Emitter<FavoriteState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        favoriteStatus: BlocStates.success,
-        favoriteMoviesList: event.movieList,
+  ) async {
+    final result = await getAllFavoriteMoviesUseCase.call(NoParams());
+    result.fold(
+      (l) => emit(
+        state.copyWith(
+          favoriteStatus: BlocStates.error,
+          favoriteFailure: l.errorMessage,
+        ),
+      ),
+      (r) => emit(
+        state.copyWith(
+          favoriteStatus: BlocStates.success,
+          favoriteMoviesList: r,
+        ),
       ),
     );
   }
@@ -69,20 +79,29 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     result.fold(
       (l) => emit(
         state.copyWith(
-          favoriteStatus: BlocStates.error,
+          favoriteActionStatus: BlocStates.error,
           favoriteFailure: l.errorMessage,
         ),
       ),
-      (r) {
-        emit(
-          state.copyWith(
-            favoriteStatus: BlocStates.success,
-            favoriteMoviesList: r,
-          ),
-        );
+      (r) => emit(
+        state.copyWith(
+          favoriteActionStatus: BlocStates.success,
+          id: event.movieId,
+          favoriteMessage: 'removed',
+        ),
+      ),
+    );
+  }
 
-        emit(FavoriteActionState(event.movieId));
-      },
+  FutureOr<void> onSetFavoriteToDefault(
+    SetFavoriteToDefault event,
+    Emitter<FavoriteState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        favoriteActionStatus: BlocStates.initial,
+        favoriteMessage: '',
+      ),
     );
   }
 }

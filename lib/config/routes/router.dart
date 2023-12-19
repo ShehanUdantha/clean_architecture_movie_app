@@ -1,12 +1,12 @@
-import '../../core/utils/helper.dart';
-import '../../features/movie/presentation/pages/all_movie_list_page.dart';
-import '../../features/movie/presentation/pages/movie_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constant/route_names.dart';
 import '../../core/presentation/pages/home_page.dart';
+import '../../core/utils/helper.dart';
 import '../../features/favorite/presentation/pages/favorite_page.dart';
+import '../../features/movie/presentation/pages/all_movie_list_page.dart';
+import '../../features/movie/presentation/pages/movie_details_page.dart';
 import '../../features/movie/presentation/pages/movie_page.dart';
 
 // private navigators

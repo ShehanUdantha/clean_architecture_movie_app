@@ -9,14 +9,12 @@ abstract class FavoriteEvent extends Equatable {
 
 class GetAllFavoriteMoviesEvent extends FavoriteEvent {}
 
-class UpdateFavoriteMoviesEvent extends FavoriteEvent {
-  final List<MovieDetailsEntity> movieList;
-
-  const UpdateFavoriteMoviesEvent(this.movieList);
-}
+class UpdateFavoriteMoviesEvent extends FavoriteEvent {}
 
 class DeleteFavoriteMovieEvent extends FavoriteEvent {
   final int movieId;
 
   const DeleteFavoriteMovieEvent({required this.movieId});
 }
+
+class SetFavoriteToDefault extends FavoriteEvent {}

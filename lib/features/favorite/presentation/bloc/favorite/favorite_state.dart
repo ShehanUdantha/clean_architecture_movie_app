@@ -5,12 +5,16 @@ class FavoriteState extends Equatable {
   final BlocStates favoriteStatus;
   final String favoriteFailure;
   final int id;
+  final BlocStates favoriteActionStatus;
+  final String favoriteMessage;
 
   const FavoriteState({
     this.favoriteMoviesList = const [],
     this.favoriteStatus = BlocStates.initial,
     this.favoriteFailure = '',
     this.id = 0,
+    this.favoriteActionStatus = BlocStates.initial,
+    this.favoriteMessage = '',
   });
 
   FavoriteState copyWith({
@@ -18,12 +22,16 @@ class FavoriteState extends Equatable {
     BlocStates? favoriteStatus,
     String? favoriteFailure,
     int? id,
+    BlocStates? favoriteActionStatus,
+    String? favoriteMessage,
   }) {
     return FavoriteState(
       favoriteMoviesList: favoriteMoviesList ?? this.favoriteMoviesList,
       favoriteStatus: favoriteStatus ?? this.favoriteStatus,
       favoriteFailure: favoriteFailure ?? this.favoriteFailure,
       id: id ?? this.id,
+      favoriteActionStatus: favoriteActionStatus ?? this.favoriteActionStatus,
+      favoriteMessage: favoriteMessage ?? this.favoriteMessage,
     );
   }
 
@@ -33,11 +41,7 @@ class FavoriteState extends Equatable {
         favoriteStatus,
         favoriteFailure,
         id,
+        favoriteActionStatus,
+        favoriteMessage,
       ];
-}
-
-class FavoriteActionState extends FavoriteState {
-  final int movieId;
-
-  const FavoriteActionState(this.movieId) : super(id: movieId);
 }

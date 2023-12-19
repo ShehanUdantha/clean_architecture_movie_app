@@ -33,3 +33,5 @@ class CheckMovieISFavoriteOrNotEvent extends MovieDetailsEvent {
 
   const CheckMovieISFavoriteOrNotEvent({required this.movieId});
 }
+
+class SetMovieDetailsStatusToDefaultEvent extends MovieDetailsEvent {}

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'features/movie/presentation/bloc/movie_details/movie_details_bloc.dart';
+
 import 'config/theme/theme.dart';
 import 'features/favorite/presentation/bloc/favorite/favorite_bloc.dart';
 import 'features/movie/presentation/bloc/movie/movie_bloc.dart';
@@ -46,6 +48,9 @@ class App extends StatelessWidget {
             ..add(
               GetAllFavoriteMoviesEvent(),
             ),
+        ),
+        BlocProvider(
+          create: (context) => service_locator.sl<MovieDetailsBloc>(),
         ),
       ],
       child: MaterialApp.router(

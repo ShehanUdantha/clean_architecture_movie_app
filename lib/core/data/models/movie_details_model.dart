@@ -1,8 +1,7 @@
-import '../../constant/db_constant.dart';
-
-import '../../domain/entities/movie_details_entity.dart';
 import '../../../features/movie/data/models/movie_credit_model.dart';
 import '../../../features/movie/data/models/review_model.dart';
+import '../../constant/db_constant.dart';
+import '../../domain/entities/movie_details_entity.dart';
 
 class MovieDetailsModel extends MovieDetailsEntity {
   const MovieDetailsModel({
