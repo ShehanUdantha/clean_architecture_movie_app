@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'features/movie/presentation/bloc/movie_details/movie_details_bloc.dart';
 
 import 'config/theme/theme.dart';
@@ -8,18 +6,12 @@ import 'features/movie/presentation/bloc/movie/movie_bloc.dart';
 
 import 'config/routes/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/services/service_locator.dart' as service_locator;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await service_locator.serviceLocator();
-
-  ByteData data =
-      await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
-  SecurityContext.defaultContext
-      .setTrustedCertificatesBytes(data.buffer.asUint8List());
 
   runApp(const App());
 }
