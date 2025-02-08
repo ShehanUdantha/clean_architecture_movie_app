@@ -21,7 +21,7 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result);
     } on ServerException catch (e) {
       return Left(
-        LocalDBFailure(
+        ServerFailure(
           errorMessage: e.errorMessage,
           stackTrace: e.stackTrace,
         ),
@@ -36,7 +36,7 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result);
     } on ServerException catch (e) {
       return Left(
-        LocalDBFailure(
+        ServerFailure(
           errorMessage: e.errorMessage,
           stackTrace: e.stackTrace,
         ),
@@ -51,7 +51,7 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result);
     } on ServerException catch (e) {
       return Left(
-        LocalDBFailure(
+        ServerFailure(
           errorMessage: e.errorMessage,
           stackTrace: e.stackTrace,
         ),
@@ -66,7 +66,7 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result);
     } on ServerException catch (e) {
       return Left(
-        LocalDBFailure(
+        ServerFailure(
           errorMessage: e.errorMessage,
           stackTrace: e.stackTrace,
         ),
@@ -82,7 +82,7 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result);
     } on ServerException catch (e) {
       return Left(
-        LocalDBFailure(
+        ServerFailure(
           errorMessage: e.errorMessage,
           stackTrace: e.stackTrace,
         ),
