@@ -22,12 +22,15 @@ class ListHorizontalCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Stack(
         children: [
           Container(
-            height: Helper.screeWidth(context) * 0.425,
+            height: orientation == Orientation.landscape
+                ? Helper.screeHeight(context) * 0.425
+                : Helper.screeHeight(context) * 0.2,
             padding: const EdgeInsets.all(5.0).copyWith(top: 6, left: 6),
             decoration: BoxDecoration(
               color: Helper.isDark(context)

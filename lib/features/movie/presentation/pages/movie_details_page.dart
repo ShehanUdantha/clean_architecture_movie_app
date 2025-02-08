@@ -49,14 +49,14 @@ _bodyWidget() {
       }
 
       if (state.actionStatus == BlocStates.success) {
-        if (state.snackMessage == 'added') {
+        if (state.snackMessage == FavoriteStatus.added.name) {
           Helper.showSnackBar(context, Strings.movieAdded);
           context
               .read<MovieDetailsBloc>()
               .add(SetMovieDetailsStatusToDefaultEvent());
           context.read<FavoriteBloc>().add(UpdateFavoriteMoviesEvent());
         }
-        if (state.snackMessage == 'removed') {
+        if (state.snackMessage == FavoriteStatus.removed.name) {
           Helper.showSnackBar(context, Strings.movieRemoved);
           context
               .read<MovieDetailsBloc>()

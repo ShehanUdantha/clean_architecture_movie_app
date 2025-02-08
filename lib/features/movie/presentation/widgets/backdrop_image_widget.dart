@@ -22,6 +22,8 @@ class BackDropImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return Column(
       children: [
         Stack(
@@ -31,7 +33,9 @@ class BackDropImageWidget extends StatelessWidget {
                   ? Helper.generateImageUrl(movieDetails.backdropPath)
                   : APIConstant.defaultMovieImage,
               imageBuilder: (context, imageProvider) => Container(
-                height: Helper.screeHeight(context) * 0.45,
+                height: orientation == Orientation.landscape
+                    ? Helper.screeHeight(context) * 0.6
+                    : Helper.screeHeight(context) * 0.45,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: imageProvider,
@@ -41,7 +45,9 @@ class BackDropImageWidget extends StatelessWidget {
               ),
             ),
             Container(
-              height: Helper.screeHeight(context) * 0.452,
+              height: orientation == Orientation.landscape
+                  ? Helper.screeHeight(context) * 0.6
+                  : Helper.screeHeight(context) * 0.452,
               decoration: Styles.linearBoxDecoration(radius: 0),
             ),
             Positioned(

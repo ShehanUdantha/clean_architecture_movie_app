@@ -69,7 +69,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
       ),
       (r) => emit(
         state.copyWith(
-          snackMessage: 'added',
+          snackMessage: FavoriteStatus.added.name,
           actionStatus: BlocStates.success,
         ),
       ),
@@ -91,7 +91,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
       ),
       (r) => emit(
         state.copyWith(
-          snackMessage: 'removed',
+          snackMessage: FavoriteStatus.removed.name,
           actionStatus: BlocStates.success,
         ),
       ),

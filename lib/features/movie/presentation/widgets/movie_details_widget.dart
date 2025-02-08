@@ -19,69 +19,76 @@ class MovieDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
-              height: Helper.screeHeight(context) * 0.475,
+              height: orientation == Orientation.landscape
+                  ? Helper.screeHeight(context) * 0.65
+                  : Helper.screeHeight(context) * 0.475,
               child: BackDropImageWidget(
                 movieDetails: movieDetails,
                 isFavorite: isFavorite,
               ),
             ),
-            SizedBox(
-              height: Helper.screeHeight(context) * 0.22,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0).copyWith(
-                  top: 0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Storyline',
-                      textAlign: TextAlign.start,
-                      style: Styles.textStyle(
-                        size: 20,
-                        color: Helper.isDark(context)
-                            ? AppColors.textColorDark
-                            : AppColors.textColorLight,
-                      ),
+            Padding(
+              padding: const EdgeInsets.all(8.0).copyWith(
+                top: 0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Storyline',
+                    textAlign: TextAlign.start,
+                    style: Styles.textStyle(
+                      size: 20,
+                      color: Helper.isDark(context)
+                          ? AppColors.textColorDark
+                          : AppColors.textColorLight,
                     ),
-                    const SizedBox(
-                      height: 8,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    movieDetails.overview,
+                    style: Styles.textStyle(
+                      size: 15.5,
+                      weight: FontWeight.w300,
+                      color: Helper.isDark(context)
+                          ? AppColors.textColorDark
+                          : AppColors.textColorLight,
                     ),
-                    SizedBox(
-                      height: Helper.screeHeight(context) * 0.15,
-                      width: Helper.screeWidth(context),
-                      child: Text(
-                        movieDetails.overview,
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
-                        style: Styles.textStyle(
-                          size: 16,
-                          weight: FontWeight.w300,
-                          color: Helper.isDark(context)
-                              ? AppColors.textColorDark
-                              : AppColors.textColorLight,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Visibility(
+              visible: movieDetails.credits.isNotEmpty,
+              child: SizedBox(
+                height: orientation == Orientation.landscape
+                    ? Helper.screeHeight(context) * 0.47
+                    : Helper.screeHeight(context) * 0.28,
+                child: MovieActorsWidget(
+                  movieCreditEntity: movieDetails.credits,
                 ),
               ),
             ),
-            SizedBox(
-              height: Helper.screeHeight(context) * 0.28,
-              child: MovieActorsWidget(
-                movieCreditEntity: movieDetails.credits,
+            Visibility(
+              visible: movieDetails.reviews.isNotEmpty,
+              child: SizedBox(
+                height: orientation == Orientation.landscape
+                    ? Helper.screeHeight(context) * 0.63
+                    : Helper.screeHeight(context) * 0.32,
+                child: ReviewWidget(movieDetails: movieDetails),
               ),
-            ),
-            SizedBox(
-              height: Helper.screeHeight(context) * 0.32,
-              child: ReviewWidget(movieDetails: movieDetails),
             ),
           ],
         ),

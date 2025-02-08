@@ -18,13 +18,17 @@ class MoviePageMainViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return Column(
       children: [
         const SizedBox(
           height: 10,
         ),
         SizedBox(
-          height: Helper.screeHeight(context) * 0.3,
+          height: orientation == Orientation.landscape
+              ? Helper.screeHeight(context) * 0.6
+              : Helper.screeHeight(context) * 0.3,
           child: const UpComingMoviesWidget(),
         ),
         const SizedBox(
@@ -69,7 +73,9 @@ class MoviePageMainViewWidget extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: Helper.screeHeight(context) * 0.28,
+          height: orientation == Orientation.landscape
+              ? Helper.screeHeight(context) * 0.5
+              : Helper.screeHeight(context) * 0.28,
           child: const TrendingMoviesWidget(
             type: CardTypes.vertical,
           ),
@@ -95,7 +101,9 @@ class MoviePageMainViewWidget extends StatelessWidget {
           height: 20,
         ),
         SizedBox(
-          height: Helper.screeHeight(context) * 0.2,
+          height: orientation == Orientation.landscape
+              ? Helper.screeHeight(context) * 0.4
+              : Helper.screeHeight(context) * 0.2,
           child: const GenresWidget(),
         ),
         const SizedBox(
@@ -140,7 +148,9 @@ class MoviePageMainViewWidget extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: Helper.screeHeight(context) * 0.28,
+          height: orientation == Orientation.landscape
+              ? Helper.screeHeight(context) * 0.5
+              : Helper.screeHeight(context) * 0.28,
           child: const PopularMoviesWidget(
             type: CardTypes.vertical,
           ),

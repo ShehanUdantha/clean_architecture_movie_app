@@ -15,3 +15,8 @@ enum MoviesList {
   trending,
   popular,
 }
+
+enum FavoriteStatus {
+  added,
+  removed,
+}

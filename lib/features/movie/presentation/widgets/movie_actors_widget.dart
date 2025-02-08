@@ -18,6 +18,8 @@ class MovieActorsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return Padding(
       padding: const EdgeInsets.all(8.0).copyWith(
         top: 0,
@@ -26,7 +28,7 @@ class MovieActorsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Actors',
+            'Cast',
             textAlign: TextAlign.start,
             style: Styles.textStyle(
               size: 20,
@@ -39,7 +41,9 @@ class MovieActorsWidget extends StatelessWidget {
             height: 8,
           ),
           SizedBox(
-            height: Helper.screeHeight(context) * 0.2,
+            height: orientation == Orientation.landscape
+                ? Helper.screeHeight(context) * 0.3
+                : Helper.screeHeight(context) * 0.2,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: movieCreditEntity.length,
@@ -54,7 +58,9 @@ class MovieActorsWidget extends StatelessWidget {
                                 movieCreditEntity[index].profileUrl)
                             : APIConstant.defaultUserImage,
                         imageBuilder: (context, imageProvider) => Container(
-                          height: Helper.screeHeight(context) * 0.2,
+                          height: orientation == Orientation.landscape
+                              ? Helper.screeHeight(context) * 0.3
+                              : Helper.screeHeight(context) * 0.2,
                           width: Helper.screeWidth(context) * 0.32,
                           decoration: BoxDecoration(
                             borderRadius:
@@ -76,7 +82,9 @@ class MovieActorsWidget extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: Helper.screeHeight(context) * 0.2,
+                        height: orientation == Orientation.landscape
+                            ? Helper.screeHeight(context) * 0.3
+                            : Helper.screeHeight(context) * 0.2,
                         width: Helper.screeWidth(context) * 0.32,
                         decoration: Styles.linearBoxDecoration(),
                       ),

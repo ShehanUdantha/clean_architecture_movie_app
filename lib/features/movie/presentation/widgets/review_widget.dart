@@ -19,6 +19,8 @@ class ReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return Padding(
       padding: const EdgeInsets.all(8.0).copyWith(
         top: 0,
@@ -40,7 +42,9 @@ class ReviewWidget extends StatelessWidget {
             height: 8,
           ),
           SizedBox(
-            height: Helper.screeHeight(context) * 0.25,
+            height: orientation == Orientation.landscape
+                ? Helper.screeHeight(context) * 0.5
+                : Helper.screeHeight(context) * 0.25,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: movieDetails.reviews.length,

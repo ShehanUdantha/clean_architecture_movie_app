@@ -14,11 +14,13 @@ class UpComingMoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _bodyWidget();
+    final orientation = MediaQuery.of(context).orientation;
+
+    return _bodyWidget(orientation);
   }
 }
 
-_bodyWidget() {
+_bodyWidget(Orientation orientation) {
   return BlocBuilder<MovieBloc, MovieState>(
     builder: (context, state) {
       switch (state.upcomingMoviesStatus) {
@@ -45,7 +47,9 @@ _bodyWidget() {
                 );
               }),
               options: CarouselOptions(
-                height: Helper.screeHeight(context) * 0.3,
+                height: orientation == Orientation.landscape
+                    ? Helper.screeHeight(context) * 0.6
+                    : Helper.screeHeight(context) * 0.3,
                 autoPlay: true,
                 viewportFraction: 1,
                 autoPlayCurve: Curves.fastOutSlowIn,

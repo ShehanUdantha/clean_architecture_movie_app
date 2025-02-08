@@ -13,12 +13,15 @@ class ListGenresCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: Stack(
         children: [
           Container(
-            height: Helper.screeHeight(context) * 0.2,
+            height: orientation == Orientation.landscape
+                ? Helper.screeHeight(context) * 0.4
+                : Helper.screeHeight(context) * 0.2,
             width: Helper.screeWidth(context) * 0.42,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(15)),
