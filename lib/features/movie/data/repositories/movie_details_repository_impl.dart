@@ -13,7 +13,9 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
   final MovieLocalDataSource movieLocalDataSource;
 
   MovieDetailsRepositoryImpl(
-      this.movieDetailsRemoteDataSource, this.movieLocalDataSource);
+    this.movieDetailsRemoteDataSource,
+    this.movieLocalDataSource,
+  );
   @override
   Future<Either<Failure, MovieDetailsModel>> getMovieDetails(
       int movieId) async {
@@ -21,8 +23,13 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
       final result =
           await movieDetailsRemoteDataSource.getMovieDetails(movieId);
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(errorMessage: failure.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -33,8 +40,13 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
       final result = await movieLocalDataSource
           .addMovie(MovieDetailsModel.fromEntity(movie));
       return Right(result);
-    } catch (e) {
-      return Left(LocalDBFailure(errorMessage: e.toString()));
+    } on LocalException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -43,8 +55,13 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
     try {
       final result = await movieLocalDataSource.checkFavorite(movieId);
       return Right(result);
-    } catch (e) {
-      return Left(LocalDBFailure(errorMessage: e.toString()));
+    } on LocalException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -54,8 +71,13 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
     try {
       final result = await movieLocalDataSource.removeMovie(id);
       return Right(result);
-    } catch (e) {
-      return Left(LocalDBFailure(errorMessage: e.toString()));
+    } on LocalException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 }

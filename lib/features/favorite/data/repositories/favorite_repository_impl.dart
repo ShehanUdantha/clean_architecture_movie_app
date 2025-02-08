@@ -1,3 +1,5 @@
+import 'package:clean_architecture_movie_app/core/error/exception.dart';
+
 import '../../../../core/data/data_sources/local/movie_local_data_source.dart';
 import '../../../../core/data/models/movie_details_model.dart';
 
@@ -18,8 +20,13 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
     try {
       final result = await movieLocalDataSource.getAllMovies();
       return Right(result);
-    } catch (e) {
-      return Left(LocalDBFailure(errorMessage: e.toString()));
+    } on LocalException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -29,8 +36,13 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
     try {
       final result = await movieLocalDataSource.removeMovie(id);
       return Right(result);
-    } catch (e) {
-      return Left(LocalDBFailure(errorMessage: e.toString()));
+    } on LocalException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 }

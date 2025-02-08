@@ -19,8 +19,13 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await movieRemoteDataSource.getUpComingMovies();
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(errorMessage: failure.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -29,8 +34,13 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await movieRemoteDataSource.getPopularMovies(page);
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(errorMessage: failure.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -39,8 +49,13 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await movieRemoteDataSource.getTrendingMovies(page);
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(errorMessage: failure.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -49,8 +64,13 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await movieRemoteDataSource.getMoviesByGenre(genreId);
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(errorMessage: failure.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 
@@ -60,8 +80,13 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await movieRemoteDataSource.getMoviesByQuery(query);
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(errorMessage: failure.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        LocalDBFailure(
+          errorMessage: e.errorMessage,
+          stackTrace: e.stackTrace,
+        ),
+      );
     }
   }
 }

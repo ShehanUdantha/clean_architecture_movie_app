@@ -6,4 +6,7 @@ class Strings {
   static const String searchFiledCannotBeEmpty =
       'Search filed cannot be empty!';
   static const String searchMovieNotFound = 'Searched movie not found!';
+
+  static const String somethingWentWrongMessage =
+      'Something went wrong. Please try again later.';
 }
