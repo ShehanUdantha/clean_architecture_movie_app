@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:clean_architecture_movie_app/core/constant/strings.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constant/route_names.dart';
@@ -25,33 +28,41 @@ class MoviePage extends StatefulWidget {
 
 class _MoviePageState extends State<MoviePage> {
   TextEditingController searchController = TextEditingController();
+  Timer? _debounce;
 
   @override
   void dispose() {
     searchController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'MovieRay',
-          style: Styles.textStyle(
-            size: 26,
-            weight: FontWeight.bold,
-            color: Helper.isDark(context)
-                ? AppColors.textColorDark
-                : AppColors.textColorLight,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'MovieRay',
+            style: Styles.textStyle(
+              size: 26,
+              weight: FontWeight.bold,
+              color: Helper.isDark(context)
+                  ? AppColors.textColorDark
+                  : AppColors.textColorLight,
+            ),
           ),
         ),
+        body: _bodyWidget(context),
       ),
-      body: _bodyWidget(context),
     );
   }
 
   Widget _bodyWidget(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       // check if user want to go back after using search feature
       onWillPop: () => _detectBackButton(searchController, context),
@@ -80,7 +91,9 @@ class _MoviePageState extends State<MoviePage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Center(child: CircularProgressIndicator()),
+                        const Center(
+                          child: LinearProgressIndicator(),
+                        ),
                       ],
                     );
                   case BlocStates.success:
@@ -113,16 +126,10 @@ class _MoviePageState extends State<MoviePage> {
       children: [
         TextField(
           controller: searchController,
-          onChanged: (value) {
-            if (value == '') {
-              _clearSearchView(searchController, context);
-            } else {
-              _getResultThroughSearchQuery(value, context);
-            }
-          },
+          onChanged: (String? value) => _searchOnChangeFunction(context, value),
           onSubmitted: (value) {
             if (value == '') {
-              Helper.showSnackBar(context, 'Search filed cannot be empty!');
+              Helper.showSnackBar(context, Strings.searchFiledCannotBeEmpty);
             }
           },
           decoration: InputDecoration(
@@ -132,7 +139,8 @@ class _MoviePageState extends State<MoviePage> {
                     onPressed: () {
                       _clearSearchView(searchController, context);
                     },
-                    icon: const Icon(Iconsax.close_circle))
+                    icon: const Icon(Iconsax.close_circle),
+                  )
                 : const SizedBox(),
             fillColor: Colors.transparent,
             hintText: 'Search Movie',
@@ -146,6 +154,40 @@ class _MoviePageState extends State<MoviePage> {
       ],
     );
   }
+
+  void _searchOnChangeFunction(BuildContext context, String? value) {
+    // cancel timer
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    // start new timer
+    _debounce = Timer(
+      const Duration(milliseconds: 500),
+      () {
+        if (value == '' || value == null) {
+          _clearSearchView(searchController, context);
+        } else {
+          _getResultThroughSearchQuery(value, context);
+        }
+      },
+    );
+  }
+}
+
+void _getResultThroughSearchQuery(
+  String value,
+  BuildContext context,
+) {
+  context.read<MovieBloc>().add(const SearchBarFocusEvent(isFocus: true));
+  context.read<MovieBloc>().add(GetMoviesByQueryEvent(query: value));
+}
+
+void _clearSearchView(
+  TextEditingController searchController,
+  BuildContext context,
+) {
+  searchController.clear();
+  context.read<MovieBloc>().add(const SearchBarFocusEvent(isFocus: false));
+  FocusScope.of(context).unfocus();
 }
 
 Widget _searchResult(BuildContext context, MovieState state) {
@@ -153,7 +195,7 @@ Widget _searchResult(BuildContext context, MovieState state) {
     height: Helper.screeHeight(context) * 0.71,
     child: state.allMoviesByQuery.isEmpty
         ? const Center(
-            child: Text('Searched movie not found!'),
+            child: Text(Strings.searchMovieNotFound),
           )
         : ListView.builder(
             itemCount: state.allMoviesByQuery.length,
@@ -174,22 +216,6 @@ Widget _searchResult(BuildContext context, MovieState state) {
             },
           ),
   );
-}
-
-void _getResultThroughSearchQuery(
-  String value,
-  BuildContext context,
-) {
-  context.read<MovieBloc>().add(const SearchBarFocusEvent(isFocus: true));
-  context.read<MovieBloc>().add(GetMoviesByQueryEvent(query: value));
-}
-
-void _clearSearchView(
-  TextEditingController searchController,
-  BuildContext context,
-) {
-  searchController.clear();
-  context.read<MovieBloc>().add(const SearchBarFocusEvent(isFocus: false));
 }
 
 Future<bool> _detectBackButton(
