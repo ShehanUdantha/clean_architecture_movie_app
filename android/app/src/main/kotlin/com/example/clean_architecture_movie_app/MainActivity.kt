@@ -1,4 +1,4 @@
-package com.example.clean_architecture_movie_app
+package com.example.movieRay
 
 import io.flutter.embedding.android.FlutterActivity
 

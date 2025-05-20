@@ -110,8 +110,6 @@ class _MoviePageState extends State<MoviePage> {
                     return Center(
                       child: Text(state.allMoviesByQueryFailure),
                     );
-                  default:
-                    return const SizedBox();
                 }
               },
             ),
